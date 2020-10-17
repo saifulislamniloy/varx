@@ -9,6 +9,7 @@ import android.view.View;
 
 public class HomeActivity extends AppCompatActivity {
     private CardView botController;
+    private CardView talk;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +20,15 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), BotControllerActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        talk = findViewById(R.id.talk_bot);
+        talk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), TalkActivity.class);
                 startActivity(intent);
             }
         });
