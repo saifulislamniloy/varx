@@ -10,6 +10,7 @@ import android.view.View;
 public class HomeActivity extends AppCompatActivity {
     private CardView botController;
     private CardView talk;
+    private CardView liveView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +30,15 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), TalkActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        liveView = findViewById(R.id.live_view);
+        liveView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), LiveViewActivity.class);
                 startActivity(intent);
             }
         });
