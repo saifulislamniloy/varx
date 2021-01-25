@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.speech.tts.TextToSpeech;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -30,6 +31,8 @@ public class TalkActivity extends AppCompatActivity {
     private static final Integer RecordAudioRequestCode = 1;
     private SpeechRecognizer speechRecognizer;
 
+    private TextToSpeech tts;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +41,7 @@ public class TalkActivity extends AppCompatActivity {
         initializeUI();
         checkPermission();
         initializeSpeechRecogniser();
+        initializeTextToVoice();
 
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
 
@@ -83,6 +87,7 @@ public class TalkActivity extends AppCompatActivity {
                 mic.setBackgroundColor(getResources().getColor(R.color.lightGray));
                 ArrayList<String> data = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
                 text.setText(data.get(0));
+                tts.speak(data.get(0), TextToSpeech.QUEUE_FLUSH, null);
             }
 
             @Override
@@ -131,6 +136,17 @@ public class TalkActivity extends AppCompatActivity {
 //        });
     }
 
+    private void initializeTextToVoice() {
+        tts =new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    tts.setLanguage(Locale.US);
+                }
+            }
+        });
+    }
+
     private void initializeUI() {
         text = findViewById(R.id.voice_to_text);
         hideActionBar();
@@ -170,5 +186,13 @@ public class TalkActivity extends AppCompatActivity {
             if(grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 Toast.makeText(this,"Permission Granted", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void onPause(){
+        if(tts !=null){
+            tts.stop();
+            tts.shutdown();
+        }
+        super.onPause();
     }
 }
