@@ -11,7 +11,7 @@ import android.widget.Toast;
 public class HomeActivity extends AppCompatActivity {
     private CardView botController;
     private CardView talk;
-    private CardView liveView;
+    private CardView homeControll;
     private CardView others;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +36,11 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        liveView = findViewById(R.id.live_view);
-        liveView.setOnClickListener(new View.OnClickListener() {
+        homeControll = findViewById(R.id.live_view);
+        homeControll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), LiveViewActivity.class);
+                Intent intent = new Intent(getApplicationContext(), HomeControlActivity.class);
                 startActivity(intent);
             }
         });

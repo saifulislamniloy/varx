@@ -7,23 +7,34 @@
     tools:context=".BotControllerActivity">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
+        <WebView
+            android:id="@+id/webview"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"/>
+
+        <SeekBar
+            android:id="@+id/slider1"
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
         <Button
             android:id="@+id/go_forward"
             android:foreground="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:layout_width="@dimen/button_width"
             android:layout_height="@dimen/button_height"
-            android:layout_margin="20dp"
+            android:layout_margin="@dimen/button_margin"
             android:layout_gravity="center"
-            android:text="Forward"
+            android:text="Front"
             android:textSize="20dp"
             android:textColor="@color/white"/>
         <LinearLayout
@@ -36,10 +47,22 @@
                 android:clickable="true"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="@dimen/button_height"
-                android:layout_margin="20dp"
+                android:layout_margin="@dimen/button_margin"
                 android:layout_gravity="center"
                 android:text="Left"
                 android:textSize="20dp"
+                android:textColor="@color/white"/>
+            <Button
+                android:id="@+id/stop"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="@dimen/button_height"
+                android:layout_margin="@dimen/button_margin"
+                android:layout_gravity="center"
+                android:text="STOP"
+                android:textSize="20dp"
+                android:background="@color/lightGray"
                 android:textColor="@color/white"/>
             <Button
                 android:id="@+id/go_right"
@@ -47,7 +70,7 @@
                 android:clickable="true"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="@dimen/button_height"
-                android:layout_margin="20dp"
+                android:layout_margin="@dimen/button_margin"
                 android:layout_gravity="center"
                 android:text="Right"
                 android:textSize="20dp"
@@ -59,11 +82,16 @@
             android:clickable="true"
             android:layout_width="@dimen/button_width"
             android:layout_height="@dimen/button_height"
-            android:layout_margin="20dp"
+            android:layout_margin="@dimen/button_margin"
             android:layout_gravity="center"
-            android:text="Backward"
+            android:text="Back"
             android:textSize="20dp"
             android:textColor="@color/white"/>
+        <SeekBar
+            android:id="@+id/slider2"
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

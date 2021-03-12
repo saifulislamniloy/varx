@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Varx">
-        <activity android:name=".LiveViewActivity"></activity>
+        <activity android:name=".HomeControlActivity"></activity>
         <activity android:name=".TalkActivity" />
         <activity android:name=".BotControllerActivity" />
         <activity android:name=".HomeActivity" />

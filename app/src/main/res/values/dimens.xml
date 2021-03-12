@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <!--    botController-->
-    <dimen name="button_width">160dp</dimen>
+    <dimen name="button_width">100dp</dimen>
     <dimen name="button_height">60dp</dimen>
+    <dimen name="button_margin">15dp</dimen>
 </resources>
