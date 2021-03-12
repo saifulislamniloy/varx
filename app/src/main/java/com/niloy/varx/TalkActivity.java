@@ -26,6 +26,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Locale;
@@ -33,7 +44,7 @@ import java.util.Locale;
 public class TalkActivity extends AppCompatActivity {
     private ImageButton mic;
     private ImageButton send;
-    private TextView text;
+//    private TextView text;
     private boolean isMicOn = false;
     private static final Integer RecordAudioRequestCode = 1;
     private SpeechRecognizer speechRecognizer;
@@ -73,8 +84,8 @@ public class TalkActivity extends AppCompatActivity {
 
             @Override
             public void onBeginningOfSpeech() {
-                text.setText("");
-                text.setHint("Listening...");
+//                text.setText("");
+//                text.setHint("Listening...");
             }
 
             @Override
@@ -102,7 +113,11 @@ public class TalkActivity extends AppCompatActivity {
                 mic.setImageResource(R.drawable.mic_off);
                 mic.setBackgroundColor(getResources().getColor(R.color.lightGray));
                 ArrayList<String> data = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-                text.setText(data.get(0));
+                String mytext = data.get(0);
+
+
+
+//                text.setText(mytext);
                 arrayList.add(data.get(0));
                 tts.speak(data.get(0), TextToSpeech.QUEUE_FLUSH, null);
                 chatAdapter.notifyDataSetChanged();
@@ -161,7 +176,7 @@ public class TalkActivity extends AppCompatActivity {
 
     private void initializeUI() {
         send = findViewById(R.id.send);
-        text = findViewById(R.id.voice_to_text);
+//        text = findViewById(R.id.voice_to_text);
         editText = findViewById(R.id.editText);
         progressBar = findViewById(R.id.progressBar);
         vibration = findViewById(R.id.vibration);
@@ -233,4 +248,31 @@ public class TalkActivity extends AppCompatActivity {
         }
         super.onPause();
     }
+
+    private void API(String url) {
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        System.out.println(url);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        JSONObject jsonObject = response.getJSONObject(i);
+                        System.out.println(jsonObject.getString("title"));
+
+                    } catch (JSONException e) {
+                        System.out.println(e);
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
+            }
+        });
+        queue.add(jsonArrayRequest);
+    }
+
 }

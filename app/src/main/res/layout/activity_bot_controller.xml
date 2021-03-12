@@ -37,44 +37,48 @@
             android:text="Front"
             android:textSize="20dp"
             android:textColor="@color/white"/>
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/go_left"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:clickable="true"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="@dimen/button_height"
-                android:layout_margin="@dimen/button_margin"
                 android:layout_gravity="center"
+                android:layout_margin="@dimen/button_margin"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:text="Left"
-                android:textSize="20dp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
             <Button
                 android:id="@+id/stop"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:clickable="true"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="@dimen/button_height"
-                android:layout_margin="@dimen/button_margin"
                 android:layout_gravity="center"
-                android:text="STOP"
-                android:textSize="20dp"
+                android:layout_margin="@dimen/button_margin"
                 android:background="@color/lightGray"
-                android:textColor="@color/white"/>
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="STOP"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
             <Button
                 android:id="@+id/go_right"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:clickable="true"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="@dimen/button_height"
-                android:layout_margin="@dimen/button_margin"
                 android:layout_gravity="center"
+                android:layout_margin="@dimen/button_margin"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:text="Right"
-                android:textSize="20dp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:textSize="20dp" />
         </LinearLayout>
         <Button
             android:id="@+id/go_backward"
@@ -90,6 +94,7 @@
         <SeekBar
             android:id="@+id/slider2"
             android:layout_width="match_parent"
+
             android:layout_height="20dp" />
 
     </LinearLayout>

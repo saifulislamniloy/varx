@@ -1,8 +1,10 @@
 package com.niloy.varx;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -35,6 +37,7 @@ public class BotControllerActivity extends AppCompatActivity {
     private Button right;
     private Button stop;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,18 +54,43 @@ public class BotControllerActivity extends AppCompatActivity {
         front.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                frontAPI();
+
+                API("http://192.168.0.20/drive?dir=f");
             }
         });
-//        backAPI();
-//        rightAPI();
-//        leftAPI();
-//        stopAPI();
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                API("http://192.168.0.20/drive?dir=b");
+            }
+        });
+        left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                API("http://192.168.0.20/drive?dir=l");
+            }
+        });
+        right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                API("http://192.168.0.20/drive?dir=r");
+            }
+        });
+
+        stop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                API("http://192.168.0.20/drive?dir=s");
+            }
+        });
     }
 
-    private void frontAPI() {
+    private void API(String url) {
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url = "https://jsonplaceholder.typicode.com/posts" ;
         System.out.println(url);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
@@ -81,18 +109,10 @@ public class BotControllerActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                System.out.println(error);
             }
         });
         queue.add(jsonArrayRequest);
-    }
-    private void backAPI() {
-    }
-    private void rightAPI() {
-    }
-    private void leftAPI() {
-    }
-    private void stopAPI() {
     }
 
     private void webviewFunction() {
@@ -102,14 +122,18 @@ public class BotControllerActivity extends AppCompatActivity {
         WebViewClientImpl webViewClient = new WebViewClientImpl(this);
         webView.setWebViewClient(new WebViewClientImpl(this));
 
-        webView.loadUrl("https://www.w3schools.com/");
+        webView.loadUrl("http://192.168.0.30/");
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void sliderTwoFunction() {
+        slider2.setMax(180);
+        slider2.setMin(1);
+
         slider2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
+                API("http://192.168.0.20/hand?dof1="+ Integer.toString(progress));
             }
 
             @Override
@@ -124,10 +148,16 @@ public class BotControllerActivity extends AppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void sliderOneFunction() {
+        slider1.setMax(180);
+        slider1.setMin(1);
         slider1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+
+                API("http://192.168.0.20/hand?dof0="+ Integer.toString(progress));
 
             }
 
