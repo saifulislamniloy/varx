@@ -30,7 +30,7 @@
                     <ImageView
                         android:layout_width="64dp"
                         android:layout_height="64dp"
-                        android:src="@drawable/ic_launcher_background"
+                        android:src="@drawable/controller"
                         android:padding="10dp"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -69,7 +69,7 @@
                     <ImageView
                         android:layout_width="64dp"
                         android:layout_height="64dp"
-                        android:src="@drawable/ic_launcher_background"
+                        android:src="@drawable/talk"
                         android:padding="10dp"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -116,7 +116,7 @@
                     <ImageView
                         android:layout_width="64dp"
                         android:layout_height="64dp"
-                        android:src="@drawable/ic_launcher_background"
+                        android:src="@drawable/home_assistant"
                         android:padding="10dp"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -157,7 +157,7 @@
                         android:layout_width="71dp"
                         android:layout_height="66dp"
                         android:padding="10dp"
-                        android:src="@drawable/ic_launcher_background" />
+                        android:src="@drawable/others" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -173,7 +173,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="....."
+                        android:text="Coming Soon!"
                         android:padding="5dp"
                         android:textColor="@android:color/darker_gray"/>
 
