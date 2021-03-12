@@ -18,6 +18,7 @@ import android.speech.tts.TextToSpeech;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class TalkActivity extends AppCompatActivity {
     private SpeechRecognizer speechRecognizer;
 
     private TextToSpeech tts;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,12 +145,19 @@ public class TalkActivity extends AppCompatActivity {
                 if(status != TextToSpeech.ERROR) {
                     tts.setLanguage(Locale.US);
                 }
+                if(status == TextToSpeech.SUCCESS)
+                {
+                    tts.setLanguage(Locale.US);
+                    tts.speak("Hi. This is VARX", TextToSpeech.QUEUE_FLUSH, null);
+                    progressBar.setVisibility(View.INVISIBLE);
+                }
             }
         });
     }
 
     private void initializeUI() {
         text = findViewById(R.id.voice_to_text);
+        progressBar = findViewById(R.id.progressBar);
         hideActionBar();
     }
 
