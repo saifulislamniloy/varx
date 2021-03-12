@@ -105,7 +105,6 @@ public class TalkActivity extends AppCompatActivity {
                 text.setText(data.get(0));
                 arrayList.add(data.get(0));
                 tts.speak(data.get(0), TextToSpeech.QUEUE_FLUSH, null);
-                linearLayoutManager.setReverseLayout(true);
                 chatAdapter.notifyDataSetChanged();
             }
 
@@ -139,22 +138,6 @@ public class TalkActivity extends AppCompatActivity {
                 return false;
             }
         });
-//        mic.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(isMicOn){
-//                    speechRecognizer.stopListening();
-//                    mic.setImageResource(R.drawable.mic_off);
-//                    mic.setBackgroundColor(getResources().getColor(R.color.lightGray));
-//                    isMicOn = false;
-//                }else {
-//                    speechRecognizer.startListening(speechRecognizerIntent);
-//                    mic.setImageResource(R.drawable.mic_on);
-//                    mic.setBackgroundColor(getResources().getColor(R.color.purple_500));
-//                    isMicOn = true;
-//                }
-//            }
-//        });
     }
 
     private void initializeTextToVoice() {
@@ -169,15 +152,7 @@ public class TalkActivity extends AppCompatActivity {
                     tts.setLanguage(Locale.US);
                     tts.speak(welcomeText, TextToSpeech.QUEUE_FLUSH, null);
                     arrayList.add(welcomeText);
-                    arrayList.add("1");
-                    arrayList.add("2");
-                    arrayList.add("3");
-                    arrayList.add("4");
-                    arrayList.add("5");
-                    arrayList.add("6");
-                    arrayList.add("7");
                     progressBar.setVisibility(View.GONE);
-                    linearLayoutManager.setReverseLayout(true);
                     chatAdapter.notifyDataSetChanged();
                 }
             }
@@ -194,10 +169,6 @@ public class TalkActivity extends AppCompatActivity {
         arrayList = new ArrayList<String>();
         recyclerView = findViewById(R.id.recycleView);
         linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-//        linearLayoutManager.setReverseLayout(true);
-//        linearLayoutManager.setStackFromEnd(true);
-//        linearLayoutManager.setSmoothScrollbarEnabled(true);
-//        linearLayoutManager.setReverseLayout(true);
         recyclerView.setLayoutManager(linearLayoutManager);
         chatAdapter = new ChatAdapter(getApplicationContext(), arrayList);
         recyclerView.setAdapter(chatAdapter);
