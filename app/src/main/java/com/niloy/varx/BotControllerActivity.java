@@ -157,6 +157,7 @@ public class BotControllerActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
 
+
                 API("http://192.168.0.20/hand?dof0="+ Integer.toString(progress));
 
             }
@@ -168,6 +169,7 @@ public class BotControllerActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+
 
             }
         });

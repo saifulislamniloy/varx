@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
@@ -26,11 +27,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -39,7 +42,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class TalkActivity extends AppCompatActivity {
     private ImageButton mic;
@@ -116,10 +121,11 @@ public class TalkActivity extends AppCompatActivity {
                 String mytext = data.get(0);
 
 
+                API(mytext);
 
 //                text.setText(mytext);
                 arrayList.add(data.get(0));
-                tts.speak(data.get(0), TextToSpeech.QUEUE_FLUSH, null);
+//                tts.speak(data.get(0), TextToSpeech.QUEUE_FLUSH, null);
                 chatAdapter.notifyDataSetChanged();
             }
 
@@ -216,8 +222,11 @@ public class TalkActivity extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                arrayList.add(editText.getText().toString());
-                tts.speak(editText.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
+                String mytext = editText.getText().toString();
+                arrayList.add(mytext);
+
+                API(mytext);
+
                 editText.setText("");
                 chatAdapter.notifyDataSetChanged();
             }
@@ -249,30 +258,43 @@ public class TalkActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    private void API(String url) {
+    private void API(String text) {
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        System.out.println(url);
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
-                Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+        StringRequest sr = new StringRequest(Request.Method.POST,"http://192.168.0.104:5000/", new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONArray response) {
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        JSONObject jsonObject = response.getJSONObject(i);
-                        System.out.println(jsonObject.getString("title"));
+            public void onResponse(String response) {
+                System.out.println(response);
 
-                    } catch (JSONException e) {
-                        System.out.println(e);
-                    }
-                }
+                tts.speak(response, TextToSpeech.QUEUE_FLUSH, null);
+                arrayList.add(response);
+                chatAdapter.notifyDataSetChanged();
+
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 System.out.println(error);
+                arrayList.add(error.getMessage());
+                chatAdapter.notifyDataSetChanged();
+                tts.speak(error.getMessage(), TextToSpeech.QUEUE_FLUSH, null);
+
             }
-        });
-        queue.add(jsonArrayRequest);
+        }){
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("user","user");
+                params.put("text", text);
+                return params;
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("Content-Type","application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        queue.add(sr);
     }
 
 }
