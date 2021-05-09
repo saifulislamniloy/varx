@@ -260,7 +260,7 @@ public class TalkActivity extends AppCompatActivity {
 
     private void API(String text) {
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        StringRequest sr = new StringRequest(Request.Method.POST,"http://192.168.0.104:5000/", new Response.Listener<String>() {
+        StringRequest sr = new StringRequest(Request.Method.POST,"http://192.168.30.110:5000/", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 System.out.println(response);
